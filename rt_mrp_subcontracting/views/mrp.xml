@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_mrp_production_workorder_form_view_filter_sub" model="ir.ui.view">
+        <field name="name">view_mrp_production_workorder_form_view_filter_sub</field>
+        <field name="model">mrp.workorder</field>
+		<field name="inherit_id" ref="mrp.view_mrp_production_workorder_form_view_filter"/>
+        <field name="arch" type="xml">
+			<xpath expr="//search" position="inside">
+				<filter string="Subcontract" name="subcontract_ok" domain="[('subcontract_ok','=', True)]"/>
+				<separator/>
+				<group expand="0" string="Group By">
+					<filter name="subcontract_ok" string="Subcontract" context="{'group_by':'subcontract_ok'}"/>
+					<separator/>
+					<filter name="subcontract_partner" string="Subcontractor" context="{'group_by':'subcontract_partner_id'}"/>
+				</group>
+			</xpath>
+        </field>
+    </record>
+
+	<record id="mrp_routing_workcenter_form_view_sub" model="ir.ui.view">
+		<field name="name">mrp.routing.workcenter.form.view.sub</field>
+		<field name="model">mrp.routing.workcenter</field>
+		<field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+		<field name="arch" type="xml">
+			<field name="company_id" position="after">
+				<field name="subcontract_ok"/>
+				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
+				<field name="subcontract_partner_id"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="mrp_routing_workcenter_tree_view_sub" model="ir.ui.view">
+		<field name="name">mrp.routing.workcenter.tree.view.sub</field>
+		<field name="model">mrp.routing.workcenter</field>
+		<field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
+		<field name="arch" type="xml">
+			<field name="company_id" position="after">
+				<field name="subcontract_ok"/>
+				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
+				<field name="subcontract_partner_id"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="mrp_production_workorder_form_view_inherit_sub" model="ir.ui.view">
+		<field name="name">mrp.production.work.order.form.sub</field>
+		<field name="model">mrp.workorder</field>
+		<field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+		<field name="arch" type="xml">
+			<field name="product_id" position="after">
+				<field name="subcontract_ok"/>
+				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
+				<field name="subcontract_partner_id"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="mrp_production_workorder_tree_view_inherit_sub" model="ir.ui.view">
+		<field name="name">mrp.production.work.order.tree.sub</field>
+		<field name="model">mrp.workorder</field>
+		<field name="inherit_id" ref="mrp.mrp_production_workorder_tree_view_inherit"/>
+		<field name="arch" type="xml">
+			<field name="product_id" position="after">
+				<field name="subcontract_ok"/>
+				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
+				<field name="subcontract_partner_id"/>
+			</field>
+		</field>
+	</record>
+
+</odoo>

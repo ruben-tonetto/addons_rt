@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_picking_subcontracting_out" model="ir.sequence">
+        <field name="name">Subcontracting Out</field>
+        <field name="code">stock.picking</field>
+        <field name="use_date_range">True</field>
+        <field name="prefix">BO%(y)s</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record id="seq_picking_subcontracting_in" model="ir.sequence">
+        <field name="name">Subcontracting In</field>
+        <field name="code">stock.picking</field>
+        <field name="use_date_range">True</field>
+        <field name="prefix">BI%(y)s</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record id="subcontracting_picking_type_out" model="stock.picking.type">
+        <field name="name">Subcontracting Out</field>
+        <field name="code">internal</field>
+        <field name="sequence_id" ref="seq_picking_subcontracting_out"></field>
+    </record>
+
+    <record id="subcontracting_picking_type_in" model="stock.picking.type">
+        <field name="name">Subcontracting In</field>
+        <field name="code">internal</field>
+        <field name="sequence_id" ref="seq_picking_subcontracting_in"></field>
+    </record>
+
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_update_wo_data_wizard" model="ir.ui.view">
+        <field name="name">Update workorder data</field>
+        <field name="model">mrp.workorder.update</field>
+        <field name="arch" type="xml">
+            <form string="Parameters">
+                <div>
+                    <field name="mrp_workorder_ids">
+                        <tree>
+                            <field name="state" invisible="1"/>
+                            <field name="id" />
+                            <field name="name" />
+                            <field name="workcenter_id" />
+                            <field name="production_id" />
+                            <field name="product_id" />
+                            <field name="qty_production" />
+                        </tree>
+                    </field>
+                </div>
+                <group>
+                    <group>
+                        <field name="new_subcontract_ok"/>
+                    </group>
+                    <group>
+                        <field name="new_subcontract_partner_id"/>
+                    </group>
+                    <group>
+                        <field name="new_subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Update" name="workorder_update" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-default"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <act_window id="action_subcontract_workorder_update"
+        name="Update Workorder Wizard"
+        src_model="mrp.workorder"
+        res_model="mrp.workorder.update"
+        view_mode="form"
+        target="new"
+        multi="True"
+     />
+
+</odoo>

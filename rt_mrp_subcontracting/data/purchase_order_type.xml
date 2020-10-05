@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="seq_subcontracting_purchase" model="ir.sequence">
+        <field name="name">Subcontracting Order</field>
+        <field name="code">purchase.order</field>
+        <field name="use_date_range">True</field>
+        <field name="prefix">CO%(y)s</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record model="purchase.order.type" id="po_type_subcontracting">
+        <field name="name">Subcontracting</field>
+        <field name="sequence_id" ref="seq_subcontracting_purchase"></field>
+    </record>
+
+</odoo>

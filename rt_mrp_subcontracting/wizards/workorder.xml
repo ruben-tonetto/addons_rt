@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_workorder_assign_subcontract" model="ir.ui.view">
+		<field name="model">workorder.assign.subcontract.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Assign Workorder To Subcontract">
+				<group>
+					<group>
+						<field name="location_id"></field>
+					</group>
+					<group>
+						<field name="location_dest_id"></field>
+					</group>
+				</group>
+				<group>
+					<group>
+						<field name="new_purchase_order"></field>
+						<field name="date_planned_finished"></field>
+					</group>
+					<group>
+						<field name="partner_id" attrs="{'invisible': [('new_purchase_order', '=', False)], 'required': [('new_purchase_order', '=', True)]}"></field>
+						<field name="purchase_order_id" attrs="{'invisible': [('new_purchase_order', '=', True)], 'required': [('new_purchase_order', '=', False)]}"></field>
+					</group>
+				</group>
+				<group>
+					<field name="workorder_ids" nolabel="1">
+						<tree decoration-warning="subcontract_line_id != False">
+							<field name="subcontract_line_id" invisible="1"/>
+							<field name="product_id"/>
+							<field name="qty_remaining"/>
+						</tree>
+					</field>
+				</group>
+				<footer>
+					<button string="Confirm" name="assign" type="object" class="oe_highlight"/>
+					or
+					<button string="Cancel" special="cancel" class="oe_link"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+    <act_window id="action_workorder_assign_subcontract"
+        name="Assign Workorders To Subcontract"
+        src_model="mrp.workorder"
+        res_model="workorder.assign.subcontract.wizard"
+        view_mode="form"
+        target="new"
+        multi="True"
+     />
+
+</odoo>
+

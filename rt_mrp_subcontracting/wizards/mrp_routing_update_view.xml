@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_mrp_routing_update" model="ir.ui.view">
+        <field name="name">Update Routing Wizard</field>
+        <field name="model">mrp.routing.update</field>
+        <field name="arch" type="xml">
+            <form string="Update Routing">
+                <field name="routing_ids"/>
+                <group>
+                    <group>
+                        <field name="new_subcontract_ok"/>
+                    </group>
+                    <group>
+                        <field name="new_subcontract_partner_id"/>
+                    </group>
+                    <group>
+                        <field name="new_subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Update" name="routing_update" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_mrp_routing_update"
+        name="Update Routing Wizard"
+        src_model="mrp.routing.workcenter"
+        res_model="mrp.routing.update"
+        view_mode="form"
+        target="new"
+        multi="True"
+     />
+
+</odoo>
+
