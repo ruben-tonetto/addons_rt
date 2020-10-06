@@ -14,13 +14,35 @@
         </record>
 
         <!-- Resource: product.product  => SERVICE -->
-        <record id="product_1_service" model="product.product">
-            <field name="name">CODE_0001|100</field>
+        <record id="product_1_9006_service" model="product.product">
+            <field name="name">CODE_0001_9006|100</field>
+            <field name="type">service</field>
+        </record>
+        <record id="product_1_9003_service" model="product.product">
+            <field name="name">CODE_0001_9003|100</field>
+            <field name="type">service</field>
+        </record>
+        <record id="product_2_9006_service" model="product.product">
+            <field name="name">CODE_0002_9006|100</field>
+            <field name="type">service</field>
+        </record>
+        <record id="product_2_9003_service" model="product.product">
+            <field name="name">CODE_0002_9003|100</field>
             <field name="type">service</field>
         </record>
 
-        <record id="product_1_service" model="product.product">
-            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_service'), 'price': 3.5 })]"></field>
+        <record id="product_1_9006_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9006_service'), 'price': 3.5 })]"></field>
+        </record>
+        <record id="product_1_9003_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9003_service'), 'price': 4 })]"></field>
+        </record>
+
+        <record id="product_2_9006_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9006_service'), 'price': 7 })]"></field>
+        </record>
+        <record id="product_2_9003_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9003_service'), 'price': 8 })]"></field>
         </record>
 
         <!-- Resource: mrp.workcenter -->
@@ -31,57 +53,153 @@
 
 
         <!-- Resource: mrp.routing -->
-
-        <record id="mrp_routing_1" model="mrp.routing">
-            <field name="name">Routing CODE_0001</field>
+        <record id="mrp_routing_1_9006" model="mrp.routing">
+            <field name="name">Routing CODE_0001 9006</field>
+        </record>
+        <record id="mrp_routing_1_9003" model="mrp.routing">
+            <field name="name">Routing CODE_0001 9003</field>
+        </record>
+        <record id="mrp_routing_2_9006" model="mrp.routing">
+            <field name="name">Routing CODE_0002 9006</field>
+        </record>
+        <record id="mrp_routing_2_9003" model="mrp.routing">
+            <field name="name">Routing CODE_0002 9003</field>
         </record>
 
 
-        <!-- Resource: mrp.routing.workcenter -->
-
-        <record id="mrp_routing_workcenter_1" model="mrp.routing.workcenter">
-            <field name="routing_id" ref="mrp_routing_1"/>
-            <field name="workcenter_id" ref="mrp_workcenter_1"/>
-            <field name="name">Painting RAL9006</field>
-            <field name="subcontract_ok" eval="True"/>
-            <field name="subcontract_product_id" ref="product_1_service"></field>
-            <field name="sequence">100</field>
-        </record>
-
-
-        <!-- Resource: product.product  => MANUFACTURE -->
-
+        <!-- Resource: product.product  => MANUFACTURE ... -->
+        <!-- ... product 1 (L=1000) -->
         <record id="product_1_raw" model="product.product">
-            <field name="name">Tube L=1000 mm</field>
+            <field name="name">Raw Tube L=1000 mm</field>
             <field name="type">product</field>
             <field name="default_code">CODE_0001</field>
              <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"></field>
         </record>
-
-        <record id="product_1" model="product.product">
-            <field name="name">Tube L=1000 mm RAL9006</field>
+        <record id="product_1_9006" model="product.product">
+            <field name="name">Tube L=1000 mm GREY RAL9006</field>
             <field name="type">product</field>
             <field name="default_code">CODE_0001_RAL9006</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
         </record>
+        <record id="product_1_9003" model="product.product">
+            <field name="name">Tube L=1000 mm WHITE RAL9003</field>
+            <field name="type">product</field>
+            <field name="default_code">CODE_0001_RAL9003</field>
+            <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+        </record>
+        <!-- ... product 2 (L=1300) -->
+        <record id="product_2_raw" model="product.product">
+            <field name="name">Raw Tube L=1300 mm</field>
+            <field name="type">product</field>
+            <field name="default_code">CODE_0002</field>
+             <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"></field>
+        </record>
+        <record id="product_2_9006" model="product.product">
+            <field name="name">Tube L=1300 mm GREY RAL9006</field>
+            <field name="type">product</field>
+            <field name="default_code">CODE_0002_RAL9006</field>
+            <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+        </record>
+        <record id="product_2_9003" model="product.product">
+            <field name="name">Tube L=1300 mm WHITE RAL9003</field>
+            <field name="type">product</field>
+            <field name="default_code">CODE_0002_RAL9003</field>
+            <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+        </record>
+
 
         <!-- Resource: mrp.bom -->
-        <record id="mrp_bom_manufacture_product_1" model="mrp.bom">
-            <field name="product_tmpl_id" ref="product_1_product_template"/>
+        <record id="mrp_bom_manufacture_product_1_9006" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_1_9006_product_template"/>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="routing_id" ref="mrp_routing_1"/>
+            <field name="routing_id" ref="mrp_routing_1_9006"/>
+        </record>
+        <record id="mrp_bom_manufacture_product_1_9003" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_1_9003_product_template"/>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="routing_id" ref="mrp_routing_1_9003"/>
+        </record>
+        <record id="mrp_bom_manufacture_product_2_9006" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_2_9006_product_template"/>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="routing_id" ref="mrp_routing_2_9006"/>
+        </record>
+        <record id="mrp_bom_manufacture_product_2_9003" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_2_9003_product_template"/>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="routing_id" ref="mrp_routing_2_9003"/>
         </record>
 
 
         <!-- Resource: mrp.bom.line -->
-        <record id="mrp_bom_line_manufacture_product_1" model="mrp.bom.line">
+        <record id="mrp_bom_line_manufacture_product_1_9006" model="mrp.bom.line">
             <field name="product_id" ref="product_1_raw"/>
             <field name="product_qty">1</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_1"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9006"/>
         </record>
+        <record id="mrp_bom_line_manufacture_product_1_9003" model="mrp.bom.line">
+            <field name="product_id" ref="product_1_raw"/>
+            <field name="product_qty">1</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9003"/>
+        </record>
+        <record id="mrp_bom_line_manufacture_product_2_9006" model="mrp.bom.line">
+            <field name="product_id" ref="product_2_raw"/>
+            <field name="product_qty">1</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9006"/>
+        </record>
+        <record id="mrp_bom_line_manufacture_product_2_9003" model="mrp.bom.line">
+            <field name="product_id" ref="product_2_raw"/>
+            <field name="product_qty">1</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"/>
+        </record>
+
+
+        <!-- Resource: mrp.routing.workcenter -->
+        <record id="mrp_routing_workcenter_1_9006" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_1_9006"/>
+            <field name="workcenter_id" ref="mrp_workcenter_1"/>
+            <field name="name">Painting RAL 9006</field>
+            <field name="subcontract_ok" eval="True"/>
+            <field name="subcontract_product_id" ref="product_1_9006_service"></field>
+            <field name="sequence">100</field>
+        </record>
+        <record id="mrp_routing_workcenter_1_9003" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_1_9003"/>
+            <field name="workcenter_id" ref="mrp_workcenter_1"/>
+            <field name="name">Painting RAL 9003</field>
+            <field name="subcontract_ok" eval="True"/>
+            <field name="subcontract_product_id" ref="product_1_9003_service"></field>
+            <field name="sequence">100</field>
+        </record>
+        <record id="mrp_routing_workcenter_2_9006" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_2_9006"/>
+            <field name="workcenter_id" ref="mrp_workcenter_1"/>
+            <field name="name">Painting RAL 9006</field>
+            <field name="subcontract_ok" eval="True"/>
+            <field name="subcontract_product_id" ref="product_2_9006_service"></field>
+            <field name="sequence">100</field>
+        </record>
+        <record id="mrp_routing_workcenter_2_9003" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_2_9003"/>
+            <field name="workcenter_id" ref="mrp_workcenter_1"/>
+            <field name="name">Painting RAL 9003</field>
+            <field name="subcontract_ok" eval="True"/>
+            <field name="subcontract_product_id" ref="product_2_9003_service"></field>
+            <field name="sequence">100</field>
+        </record>
+
 
         <!-- AUTO ENABLE WORK ORDERS SETTINGS -->
         <record id="my_config_settings" model="res.config.settings">
