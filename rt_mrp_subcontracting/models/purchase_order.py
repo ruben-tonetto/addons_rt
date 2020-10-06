@@ -37,6 +37,7 @@ class PurchaseOrder(models.Model):
                 continue
             if order.subcontract_picking_out_id:
                 if order.subcontract_picking_out_id.state not in ['done', 'cancel']:
+                    order.subcontract_picking_out_id.action_assign()
                     order.subcontract_picking_out_id.button_validate()
                 order.subcontract_picking_in_id.move_lines.write({
                     'location_id': order.subcontract_picking_in_id.location_id.id,

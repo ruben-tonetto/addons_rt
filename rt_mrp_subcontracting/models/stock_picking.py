@@ -29,6 +29,8 @@ class StockPicking(models.Model):
                         'product_uom_id': production.product_uom_id.id,
                         'product_qty': production.product_uom_qty,
                     })
+                    production.workorder_ids.button_done()
                     produce.do_produce()
                     production.button_mark_done()
+
         return res

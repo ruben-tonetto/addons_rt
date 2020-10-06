@@ -111,6 +111,7 @@ class WorkorderAssignSubcontract(models.TransientModel):
             }
             po_line = self.env['purchase.order.line'].create(po_line_values)
             po_line.onchange_product_id()
+            po_line.product_qty = wo.qty_production
             wo.subcontract_line_id = po_line.id
 
         if not workorders:

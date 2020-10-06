@@ -19,6 +19,9 @@
             <field name="type">service</field>
         </record>
 
+        <record id="product_1_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_service'), 'price': 3.5 })]"></field>
+        </record>
 
         <!-- Resource: mrp.workcenter -->
         <record id="mrp_workcenter_1" model="mrp.workcenter">
