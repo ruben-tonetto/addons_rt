@@ -1,11 +1,10 @@
-# @author: Ruben Tonetto <ruben.tonetto@gmail.com>
-# Copyright Ruben tonetto
+# @author: Ruben Tonetto <ruben.tonetto@gmail.com>,  Andrea Piovesana <andrea.m.piovesana@gmail.com>,
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': 'Mrp Subcontracting',
     'summary': """Mrp Subcontracting""",
-    'author':  'Ruben Tonetto ',
+    'author':  'Ruben Tonetto, Andrea Piovesana ',
     'version': '12.0.1.0.0',
     'license': 'AGPL-3',
     'depends': [
