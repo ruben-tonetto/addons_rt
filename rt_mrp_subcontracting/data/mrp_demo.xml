@@ -51,6 +51,11 @@
             <field name="resource_calendar_id" ref="resource.resource_calendar_std"/>
         </record>
 
+        <record id="mrp_workcenter_2" model="mrp.workcenter">
+            <field name="name">Assembly</field>
+            <field name="resource_calendar_id" ref="resource.resource_calendar_std"/>
+        </record>
+
 
         <!-- Resource: mrp.routing -->
         <record id="mrp_routing_1_9006" model="mrp.routing">
@@ -65,10 +70,13 @@
         <record id="mrp_routing_2_9003" model="mrp.routing">
             <field name="name">Routing CODE_0002 9003</field>
         </record>
+        <record id="mrp_routing_3_frame" model="mrp.routing">
+            <field name="name">Routing CODE_0003 FRAME</field>
+        </record>
 
 
         <!-- Resource: product.product  => MANUFACTURE ... -->
-        <!-- ... product 1 (L=1000) -->
+        <!-- ... product 1 (tube L=1000) -->
         <record id="product_1_raw" model="product.product">
             <field name="name">Raw Tube L=1000 mm</field>
             <field name="type">product</field>
@@ -79,6 +87,7 @@
             <field name="name">Tube L=1000 mm GREY RAL9006</field>
             <field name="type">product</field>
             <field name="default_code">CODE_0001_RAL9006</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
         </record>
         <record id="product_1_9003" model="product.product">
@@ -87,7 +96,8 @@
             <field name="default_code">CODE_0001_RAL9003</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
         </record>
-        <!-- ... product 2 (L=1300) -->
+
+        <!-- ... product 2 (tube L=1300) -->
         <record id="product_2_raw" model="product.product">
             <field name="name">Raw Tube L=1300 mm</field>
             <field name="type">product</field>
@@ -107,6 +117,14 @@
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
         </record>
 
+
+        <!-- ... product 3 (frame) -->
+        <record id="product_3_frame" model="product.product">
+            <field name="name">Frame 1300x1000</field>
+            <field name="type">product</field>
+            <field name="default_code">CODE_0003_FRAME</field>
+            <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+        </record>
 
         <!-- Resource: mrp.bom -->
         <record id="mrp_bom_manufacture_product_1_9006" model="mrp.bom">
@@ -132,6 +150,12 @@
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
             <field name="routing_id" ref="mrp_routing_2_9003"/>
+        </record>
+        <record id="mrp_bom_manufacture_product_3_frame" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_3_frame_product_template"/>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="routing_id" ref="mrp_routing_3_frame"/>
         </record>
 
 
@@ -163,6 +187,21 @@
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
             <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"/>
+        </record>
+        <!-- FRAME -->
+        <record id="mrp_bom_line_manufacture_product_3_1" model="mrp.bom.line">
+            <field name="product_id" ref="product_1_raw"/>
+            <field name="product_qty">2</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_3_frame"/>
+        </record>
+        <record id="mrp_bom_line_manufacture_product_3_2" model="mrp.bom.line">
+            <field name="product_id" ref="product_2_raw"/>
+            <field name="product_qty">2</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="sequence">1</field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_3_frame"/>
         </record>
 
 
@@ -198,6 +237,83 @@
             <field name="subcontract_ok" eval="True"/>
             <field name="subcontract_product_id" ref="product_2_9003_service"></field>
             <field name="sequence">100</field>
+        </record>
+        <record id="mrp_routing_workcenter_3_frame" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_3_frame"/>
+            <field name="workcenter_id" ref="mrp_workcenter_2"/>
+            <field name="name">Welding</field>
+            <field name="subcontract_ok" eval="True"/>
+            <field name="sequence">100</field>
+            <!-- no subcontract product-->
+        </record>
+
+
+        <!-- Resource: mrp.production -->
+        <!-- product 1 -->
+        <record id="mrp_production_1" model="mrp.production">
+            <field name="product_id" ref="product_1_9006"/>
+            <field name="product_qty">7</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9006"></field>
+        </record>
+        <record id="mrp_production_2" model="mrp.production">
+            <field name="product_id" ref="product_1_9006"/>
+            <field name="product_qty">3</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=2)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9006"></field>
+        </record>
+        <record id="mrp_production_3" model="mrp.production">
+            <field name="product_id" ref="product_1_9003"/>
+            <field name="product_qty">10</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9003"></field>
+        </record>
+        <record id="mrp_production_4" model="mrp.production">
+            <field name="product_id" ref="product_1_9003"/>
+            <field name="product_qty">4</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=2)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9003"></field>
+        </record>
+        <!-- product 2 -->
+        <record id="mrp_production_5" model="mrp.production">
+            <field name="product_id" ref="product_2_9006"/>
+            <field name="product_qty">17</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9006"></field>
+        </record>
+        <record id="mrp_production_6" model="mrp.production">
+            <field name="product_id" ref="product_2_9006"/>
+            <field name="product_qty">13</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=1)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9006"></field>
+        </record>
+        <record id="mrp_production_7" model="mrp.production">
+            <field name="product_id" ref="product_2_9003"/>
+            <field name="product_qty">4</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"></field>
+        </record>
+        <record id="mrp_production_8" model="mrp.production">
+            <field name="product_id" ref="product_2_9003"/>
+            <field name="product_qty">3</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=1)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"></field>
+        </record>
+        <!-- product 3 -->
+        <record id="mrp_production_6" model="mrp.production">
+            <field name="product_id" ref="product_3_frame"/>
+            <field name="product_qty">10</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+            <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(days=10)).strftime('%Y-%m-%d %H:%M')"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_3_frame"></field>
         </record>
 
 
