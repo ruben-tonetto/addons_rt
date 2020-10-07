@@ -88,6 +88,7 @@ class WorkorderAssignSubcontract(models.TransientModel):
             picking_out = po.subcontract_picking_out_id
             picking_in = po.subcontract_picking_in_id
 
+        existing_moves = picking_in.move_lines
         workorders = self.workorder_ids
         # subcontract
         for wo in workorders:
@@ -114,46 +115,46 @@ class WorkorderAssignSubcontract(models.TransientModel):
             po_line.product_qty = wo.qty_production
             wo.subcontract_line_id = po_line.id
 
-        if not workorders:
-            raise UserError('No workorders have been added to purchase order')
+            #if not workorders:
+            #    raise UserError('No workorders have been added to purchase order')
 
-        # materials
-        existing_moves = picking_in.move_lines
-        new_moves = workorders.mapped("move_raw_ids")
-        move_ids = new_moves - existing_moves
+            # materials
 
-        # move quants raw materials for each workorder from location_id to location_dest_id of subcontractor
-        for move in move_ids:
-            if move.location_id != self.location_id:
-                raise UserError('All products must be picked up from the same source location!')
-            if move.picking_id:
-                raise UserError('The workorder %s has been already assigned!' % move.workorder_id.name)
-            # memo subcontracting product
-            if move.workorder_id.subcontract_product_id:
-                subcontract_product_id = move.workorder_id.subcontract_product_id
-            else:
-                raise UserError('No subcontract product found for product: %s'
-                                % (move.workorder_id.product_id.name_get()[0][1]))
+            new_moves = workorders.mapped("move_raw_ids")
+            move_ids = new_moves - existing_moves
 
-            # stock move to subcontracting location
-            out_values = {
-                'name': move.product_id.name_get()[0][1],
-                'product_id': move.product_id.id,
-                'product_uom': move.product_uom.id,
-                'product_uom_qty': move.product_qty,
-                'date': fields.Datetime.now(),
-                'state': 'confirmed',
-                'location_id': self.location_id.id,
-                'location_dest_id': self.location_dest_id.id,
-                'picking_id': picking_out.id,
-                'purchase_line_id': po_line.id,
-            }
-            self.env['stock.move'].create(out_values)
+            # move quants raw materials for each workorder from location_id to location_dest_id of subcontractor
+            for move in move_ids:
+                if move.location_id != self.location_id:
+                    raise UserError('All products must be picked up from the same source location!')
+                if move.picking_id:
+                    raise UserError('The workorder %s has been already assigned!' % move.workorder_id.name)
+                # memo subcontracting product
+                if move.workorder_id.subcontract_product_id:
+                    subcontract_product_id = move.workorder_id.subcontract_product_id
+                else:
+                    raise UserError('No subcontract product found for product: %s'
+                                    % (move.workorder_id.product_id.name_get()[0][1]))
 
-            # puntare la move nel magazzino esterno e inserirla nel picking ** NON QUI, MA NELLA VALIDAZIONE DEL PICKING **
-            move.write({
-                'picking_id': picking_in.id,
-            })
+                # stock move to subcontracting location
+                out_values = {
+                    'name': move.product_id.name_get()[0][1],
+                    'product_id': move.product_id.id,
+                    'product_uom': move.product_uom.id,
+                    'product_uom_qty': move.product_qty,
+                    'date': fields.Datetime.now(),
+                    'state': 'confirmed',
+                    'location_id': self.location_id.id,
+                    'location_dest_id': self.location_dest_id.id,
+                    'picking_id': picking_out.id,
+                    'purchase_line_id': po_line.id,
+                }
+                self.env['stock.move'].create(out_values)
+
+                # puntare la move nel magazzino esterno e inserirla nel picking ** NON QUI, MA NELLA VALIDAZIONE DEL PICKING **
+                move.write({
+                    'picking_id': picking_in.id,
+                })
 
 
         return {
