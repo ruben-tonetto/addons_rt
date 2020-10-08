@@ -8,10 +8,12 @@
         <field name="arch" type="xml">
 			<xpath expr="//search" position="inside">
 				<filter string="Subcontract" name="subcontract_ok" domain="[('subcontract_ok','=', True)]"/>
+				<filter string="Not Subcontract" name="subcontract_ok" domain="[('subcontract_ok','=', False)]"/>
 				<separator/>
+				<filter string="Subcontract Done" name="subcontract_ok" domain="[('subcontract_line_id','!=', False)]"/>
+				<filter string="Subcontract To Do" name="subcontract_ok" domain="[('subcontract_line_id','=', False)]"/>
 				<group expand="0" string="Group By">
 					<filter name="subcontract_ok" string="Subcontract" context="{'group_by':'subcontract_ok'}"/>
-					<separator/>
 					<filter name="subcontract_partner" string="Subcontractor" context="{'group_by':'subcontract_partner_id'}"/>
 				</group>
 			</xpath>
@@ -53,6 +55,7 @@
 				<field name="subcontract_ok"/>
 				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
 				<field name="subcontract_partner_id"/>
+				<field name="subcontract_line_id"/>
 			</field>
 		</field>
 	</record>
@@ -66,6 +69,7 @@
 				<field name="subcontract_ok"/>
 				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
 				<field name="subcontract_partner_id"/>
+				<field name="subcontract_line_id"/>
 			</field>
 		</field>
 	</record>

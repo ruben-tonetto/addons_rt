@@ -53,6 +53,9 @@ class WorkorderAssignSubcontract(models.TransientModel):
                 self.location_id = wo.move_raw_ids[0].location_id
             if not self.date_planned_finished or self.date_planned_finished > wo.production_id.date_planned_finished:
                 self.date_planned_finished = wo.production_id.date_planned_finished
+            if not self.partner_id:
+                self.partner_id = wo.subcontract_partner_id
+                self.onchange_partner()
 
     @api.multi
     def assign(self):
@@ -102,25 +105,23 @@ class WorkorderAssignSubcontract(models.TransientModel):
             # create purchase order line
             po_line_values = {
                 'product_id': wo.subcontract_product_id.id,
-                'name': wo.name,
                 'product_qty': wo.qty_production,
                 'product_uom': wo.product_uom_id.id,
-                'production_id': wo.production_id.id,
-                'price_unit': 0,
+                'price_unit': wo.subcontract_product_id.standard_price,
                 'date_planned': self.date_planned_finished,
                 'order_id': po.id,
+                'name': wo.name,
+                'production_id': wo.production_id.id,
+                'production_product_id': wo.production_id.product_id.id,
+                'workorder_id': wo.id,
             }
             po_line = self.env['purchase.order.line'].create(po_line_values)
-            po_line.onchange_product_id()
-            po_line.product_qty = wo.qty_production
+
+            # assign to workorder purchase line for subcontract
             wo.subcontract_line_id = po_line.id
 
-            #if not workorders:
-            #    raise UserError('No workorders have been added to purchase order')
-
             # materials
-
-            new_moves = workorders.mapped("move_raw_ids")
+            new_moves = wo.mapped("move_raw_ids")
             move_ids = new_moves - existing_moves
 
             # move quants raw materials for each workorder from location_id to location_dest_id of subcontractor
@@ -128,13 +129,9 @@ class WorkorderAssignSubcontract(models.TransientModel):
                 if move.location_id != self.location_id:
                     raise UserError('All products must be picked up from the same source location!')
                 if move.picking_id:
-                    raise UserError('The workorder %s has been already assigned!' % move.workorder_id.name)
-                # memo subcontracting product
-                if move.workorder_id.subcontract_product_id:
-                    subcontract_product_id = move.workorder_id.subcontract_product_id
-                else:
-                    raise UserError('No subcontract product found for product: %s'
-                                    % (move.workorder_id.product_id.name_get()[0][1]))
+                    #raise UserError('The workorder %s has been already assigned!' % move.workorder_id.name)
+                    continue
+                
 
                 # stock move to subcontracting location
                 out_values = {
@@ -155,7 +152,6 @@ class WorkorderAssignSubcontract(models.TransientModel):
                 move.write({
                     'picking_id': picking_in.id,
                 })
-
 
         return {
             'name': 'Purchase Order',
