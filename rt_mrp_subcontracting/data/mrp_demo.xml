@@ -212,6 +212,7 @@
             <field name="name">Painting RAL 9006</field>
             <field name="subcontract_ok" eval="True"/>
             <field name="subcontract_product_id" ref="product_1_9006_service"></field>
+            <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
         <record id="mrp_routing_workcenter_1_9003" model="mrp.routing.workcenter">
@@ -220,6 +221,7 @@
             <field name="name">Painting RAL 9003</field>
             <field name="subcontract_ok" eval="True"/>
             <field name="subcontract_product_id" ref="product_1_9003_service"></field>
+            <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
         <record id="mrp_routing_workcenter_2_9006" model="mrp.routing.workcenter">
@@ -228,6 +230,7 @@
             <field name="name">Painting RAL 9006</field>
             <field name="subcontract_ok" eval="True"/>
             <field name="subcontract_product_id" ref="product_2_9006_service"></field>
+            <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
         <record id="mrp_routing_workcenter_2_9003" model="mrp.routing.workcenter">
@@ -236,6 +239,7 @@
             <field name="name">Painting RAL 9003</field>
             <field name="subcontract_ok" eval="True"/>
             <field name="subcontract_product_id" ref="product_2_9003_service"></field>
+            <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
         <record id="mrp_routing_workcenter_3_frame" model="mrp.routing.workcenter">
