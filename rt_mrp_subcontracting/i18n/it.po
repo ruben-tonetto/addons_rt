@@ -131,12 +131,12 @@ msgstr "Ubicazione di c/lavoro"
 
 #. module: rt_mrp_subcontracting
 #: model:ir.model.fields,field_description:rt_mrp_subcontracting.field_purchase_order_line__production_id
-msgid "Manufactoring Order"
+msgid "Manufacturing Order"
 msgstr "Ordine produzione"
 
 #. module: rt_mrp_subcontracting
 #: model:ir.model.fields,field_description:rt_mrp_subcontracting.field_purchase_order_line__production_product_id
-msgid "Manufactoring Product"
+msgid "Manufacturing Product"
 msgstr "Prodotto ordine produzione"
 
 #. module: rt_mrp_subcontracting

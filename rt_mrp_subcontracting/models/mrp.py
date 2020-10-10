@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, fields, api, _
-
+from odoo.exceptions import UserError
 
 class MrpRoutingWorkcenter(models.Model):
     _inherit = 'mrp.routing.workcenter'
@@ -13,8 +13,19 @@ class MrpRoutingWorkcenter(models.Model):
     subcontract_product_id = fields.Many2one('product.product', string='Subcontracting Product')
 
 
+class MrpProduction(models.Model):
+    _inherit = 'mrp.production'
+
+    @api.multi
+    def action_assign(self):
+        if not self.filtered(lambda mo: mo.workorder_ids):
+            raise UserError("Please plan workorders to proceed.")
+        if self.filtered(lambda mo: mo.mapped("workorder_ids").subcontract_ok):
+            raise UserError("You can not assign raw material for subcontract manufacturing orders")
+        super(MrpProduction, self).action_assign()
+
 class MrpWorkorder(models.Model):
-    _inherit = ['mrp.workorder']
+    _inherit = 'mrp.workorder'
     subcontract_ok = fields.Boolean(string='Subcontracting Production', default=False)
     subcontract_partner_id = fields.Many2one('res.partner', string='Subcontracting Partner')
     subcontract_product_id = fields.Many2one('product.product', string='Subcontracting Product')
