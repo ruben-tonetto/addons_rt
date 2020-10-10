@@ -246,7 +246,7 @@
             <field name="routing_id" ref="mrp_routing_3_frame"/>
             <field name="workcenter_id" ref="mrp_workcenter_2"/>
             <field name="name">Welding</field>
-            <field name="subcontract_ok" eval="True"/>
+            <field name="subcontract_ok" eval="False"/>
             <field name="sequence">100</field>
             <!-- no subcontract product-->
         </record>
