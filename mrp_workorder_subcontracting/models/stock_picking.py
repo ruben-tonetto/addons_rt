@@ -19,7 +19,7 @@ class StockPicking(models.Model):
         return res
 
     def subcontracting_validate(self):
-        if self.picking_type_id.id == self.env.ref('rt_mrp_subcontracting.subcontracting_picking_type_out').id:
+        if self.picking_type_id.id == self.env.ref('mrp_workorder_subcontracting.subcontracting_picking_type_out').id:
             for move in self.move_lines.mapped('purchase_line_id').mapped('workorder_id').mapped('move_raw_ids'):
                 move.location_id = self.location_dest_id
 

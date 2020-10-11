@@ -67,7 +67,7 @@ class WorkorderAssignSubcontract(models.TransientModel):
             po = self.env['purchase.order'].create({
                 'partner_id': self.partner_id.id,
                 'date_planned': self.date_planned_finished,
-                'order_type': self.env.ref('rt_mrp_subcontracting.po_type_subcontracting').id,
+                'order_type': self.env.ref('mrp_workorder_subcontracting.po_type_subcontracting').id,
                 'subcontract_location_id': self.location_dest_id.id,
             })
         else:

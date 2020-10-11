@@ -25,7 +25,7 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def action_view_picking(self):
-        if self.order_type.id == self.env.ref('rt_mrp_subcontracting.po_type_subcontracting').id:
+        if self.order_type.id == self.env.ref('mrp_workorder_subcontracting.po_type_subcontracting').id:
             if self.subcontract_picking_out_id.state != "done":
                 raise UserError("You have to confirm Picking Out before proceeding with material receipt")
 
@@ -47,7 +47,7 @@ class PurchaseOrder(models.Model):
 
     def button_confirm(self):
         for order in self:
-            if order.order_type.id != self.env.ref('rt_mrp_subcontracting.po_type_subcontracting').id:
+            if order.order_type.id != self.env.ref('mrp_workorder_subcontracting.po_type_subcontracting').id:
                 continue
             if order.subcontract_picking_out_id:
                 raise UserError("Picking Out already assigned to order %s " % order.name)
@@ -80,7 +80,7 @@ class PurchaseOrder(models.Model):
 
             picking_out = self.env['stock.picking'].create({
                 'partner_id': order.partner_id.id,
-                'picking_type_id': self.env.ref('rt_mrp_subcontracting.subcontracting_picking_type_out').id,
+                'picking_type_id': self.env.ref('mrp_workorder_subcontracting.subcontracting_picking_type_out').id,
                 'location_id': location_id.id,
                 'location_dest_id': order.partner_id.subcontract_location_id.id,
                 'move_lines': out_moves
@@ -100,7 +100,7 @@ class PurchaseOrderLine(models.Model):
 
     @api.multi
     def unlink(self):
-        for line in self.filtered(lambda l: l.order_id.order_type == self.env.ref('rt_mrp_subcontracting.po_type_subcontracting')):
+        for line in self.filtered(lambda l: l.order_id.order_type == self.env.ref('mrp_workorder_subcontracting.po_type_subcontracting')):
             if line.workorder_id:
                 line.workorder_id.subcontract_line_id = False
                 if line.order_id.subcontract_picking_out_id:
