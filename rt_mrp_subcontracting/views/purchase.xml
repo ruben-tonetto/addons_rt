@@ -6,32 +6,15 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
         <field name="arch" type="xml">
-
-            <xpath expr="//button[@name='action_view_picking']" position="replace">
-            </xpath>
-            <xpath expr="//button[@name='action_view_picking']" position="replace">
-            </xpath>
-
-            <xpath expr="//div[@name='button_box']" position="inside">
+            <xpath expr="//div[hasclass('oe_button_box')]/button[@name='action_view_picking']" position="before">
                 <field name="subcontract_picking_out_id" invisible="1"/>
-                <field name="subcontract_picking_in_id" invisible="1"/>
-
                 <button type="object"
                     name="action_view_subcontract_picking_out"
                     class="oe_stat_button"
+                    style="color:tomato;"
                     icon="fa-truck fa-flip-horizontal"
                     string="To Sub"
                     attrs="{'invisible': ['|', ('order_type','!=',%(po_type_subcontracting)d), ('subcontract_picking_out_id','=', False)]}"
-                    groups="base.group_user">
-                </button>
-
-                <button type="object"
-                    name="action_view_subcontract_picking_in"
-                    class="oe_stat_button"
-                    style="color:tomato;"
-                    string="From Sub"
-                    icon="fa-truck"
-                    attrs="{'invisible': ['|', ('order_type','!=',%(po_type_subcontracting)d), ('subcontract_picking_in_id','=', False)]}"
                     groups="base.group_user">
                 </button>
             </xpath>

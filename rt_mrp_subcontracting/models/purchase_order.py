@@ -9,7 +9,6 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     subcontract_picking_out_id = fields.Many2one('stock.picking', string=_('Subcontract Pick Out'))
-    subcontract_picking_in_id = fields.Many2one('stock.picking', string=_('Subcontract Pick In'))
     subcontract_location_id = fields.Many2one('stock.location',
                                   string=_('Subcontracting Location'), index=True,
                                   help=_('Location for Subcontracting'))
@@ -25,14 +24,26 @@ class PurchaseOrder(models.Model):
         }
 
     @api.multi
-    def action_view_subcontract_picking_in(self):
-        return {
-            'name': 'Purchase Order',
-            'res_model': 'stock.picking',
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'res_id': self.subcontract_picking_in_id.id
-        }
+    def action_view_picking(self):
+        if self.order_type.id == self.env.ref('rt_mrp_subcontracting.po_type_subcontracting').id:
+            if self.subcontract_picking_out_id.state != "done":
+                raise UserError("You have to confirm Picking Out before proceeding with material receipt")
+
+            wizard = self.env['purchase.subcontract.receive.wizard'].create({
+                'order_id': self.id,
+            })
+
+            wizard.onchange_order_id()
+            return {
+                "name": "Subcontract Receive Wizard",
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': "purchase.subcontract.receive.wizard",
+                'type': 'ir.actions.act_window',
+                'res_id': wizard.id,
+                'target': 'new',
+            }
+        return super(PurchaseOrder, self).action_view_picking()
 
     def button_confirm(self):
         for order in self:
@@ -44,7 +55,7 @@ class PurchaseOrder(models.Model):
             out_moves = []
             location_id = False  # set while processing the first workorder
             for po_line in order.order_line:
-                for move in po_line.workorder_id.mapped("move_raw_ids"):
+                for move in po_line.workorder_id.move_raw_ids:
                     if move.picking_id:
                         # raise UserError('The workorder %s has been already assigned!' % move.workorder_id.name)
                         continue
@@ -65,7 +76,6 @@ class PurchaseOrder(models.Model):
                         'location_dest_id': order.subcontract_location_id.id,
                         'purchase_line_id': po_line.id,
                     }
-                    #self.env['stock.move'].create(out_values)
                     out_moves.append((0, 0, out_values))
 
             picking_out = self.env['stock.picking'].create({
@@ -79,18 +89,6 @@ class PurchaseOrder(models.Model):
 
         return super(PurchaseOrder, self).button_confirm()
 
-    @api.multi
-    def button_cancel(self):
-        for order in self:
-            if order.subcontract_picking_in_id:
-                order.subcontract_picking_in_id.move_lines.write({"picking_id":  False})
-                order.subcontract_picking_in_id.action_cancel()
-            if order.subcontract_picking_out_id:
-                order.subcontract_picking_out_id.action_cancel()
-            order.subcontract_picking_in_id = False
-            order.subcontract_picking_in_out = False
-        super(PurchaseOrder, self).button_cancel()
-
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
@@ -99,7 +97,6 @@ class PurchaseOrderLine(models.Model):
     production_id = fields.Many2one('mrp.production', string="Manufacturing Order")
     production_product_id = fields.Many2one('product.product', related="production_id.product_id",
                                             store=True, string="Manufacturing Product")
-
 
     @api.multi
     def unlink(self):

@@ -18,6 +18,7 @@
          'wizards/workorder.xml',
          'wizards/mrp_routing_update_view.xml',
          'wizards/mrp_workorder_update_view.xml',
+         'wizards/purchase_receive.xml',
          'views/partner.xml',
          'views/purchase.xml',
          'views/mrp.xml',

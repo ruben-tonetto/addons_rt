@@ -35,14 +35,14 @@
             <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9006_service'), 'price': 3.5 })]"></field>
         </record>
         <record id="product_1_9003_service" model="product.product">
-            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9003_service'), 'price': 4 })]"></field>
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9003_service'), 'price': 4.2 })]"></field>
         </record>
 
         <record id="product_2_9006_service" model="product.product">
             <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9006_service'), 'price': 7 })]"></field>
         </record>
         <record id="product_2_9003_service" model="product.product">
-            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9003_service'), 'price': 8 })]"></field>
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9003_service'), 'price': 8.4 })]"></field>
         </record>
 
         <!-- Resource: mrp.workcenter -->
@@ -312,7 +312,7 @@
             <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"></field>
         </record>
         <!-- product 3 -->
-        <record id="mrp_production_6" model="mrp.production">
+        <record id="mrp_production_9" model="mrp.production">
             <field name="product_id" ref="product_3_frame"/>
             <field name="product_qty">10</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>

@@ -16,14 +16,6 @@ class MrpRoutingWorkcenter(models.Model):
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    @api.multi
-    def action_assign(self):
-        if not self.filtered(lambda mo: mo.workorder_ids):
-            raise UserError("Please plan workorders to proceed.")
-        if self.filtered(lambda mo: mo.mapped("workorder_ids").subcontract_ok):
-            raise UserError("You can not assign raw material for subcontract manufacturing orders")
-        super(MrpProduction, self).action_assign()
-
 class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
     subcontract_ok = fields.Boolean(string='Subcontracting Production', default=False)

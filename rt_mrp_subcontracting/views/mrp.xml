@@ -55,7 +55,7 @@
 				<field name="subcontract_ok"/>
 				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
 				<field name="subcontract_partner_id"/>
-				<field name="subcontract_line_id"/>
+				<field name="subcontract_line_id" readonly="1"/>
 			</field>
 		</field>
 	</record>

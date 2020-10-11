@@ -26,6 +26,8 @@ class WorkorderAssignSubcontract(models.TransientModel):
     def onchange_partner(self):
         if self.partner_id.subcontract_location_id:
             self.location_dest_id = self.partner_id.subcontract_location_id
+        else:
+            self.location_dest_id = False
 
     @api.model
     def default_get(self, field_names):
@@ -94,7 +96,7 @@ class WorkorderAssignSubcontract(models.TransientModel):
                 'product_id': wo.subcontract_product_id.id,
                 'product_qty': wo.qty_production,
                 'product_uom': wo.product_uom_id.id,
-                'price_unit': wo.subcontract_product_id.standard_price,
+                'price_unit': 0,
                 'date_planned': self.date_planned_finished,
                 'order_id': po.id,
                 'name': wo.name,
@@ -103,7 +105,7 @@ class WorkorderAssignSubcontract(models.TransientModel):
                 'workorder_id': wo.id,
             }
             po_line = self.env['purchase.order.line'].create(po_line_values)
-
+            po_line._onchange_quantity()
             # assign to workorder purchase line for subcontract
             wo.subcontract_line_id = po_line.id
 
