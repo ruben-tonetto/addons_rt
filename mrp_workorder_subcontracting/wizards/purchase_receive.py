@@ -57,28 +57,32 @@ class PurchaseSubcontractReceiveWizard(models.TransientModel):
                 'location_id': self.order_id.subcontract_location_id.id,
                 'location_dest_id': self.order_id.picking_type_id.default_location_dest_id.id,
             })
+
             wos = []
+            finished_move_ids = []
             for line in lines_to_do:
-                line.workorder_id.production_id.move_finished_ids \
-                    .filtered(lambda m: m.state not in ['done', 'cancel']) \
-                    .write({
-                    'purchase_line_id': line.purchase_line_id.id,
-                    'picking_id': picking_in.id,
-                    #'date': self.date_received
-                })
+                finished_moves = line.workorder_id.production_id.move_finished_ids.filtered(
+                    lambda m: m.state not in ['done', 'cancel'])
+                finished_moves.write({
+                        'purchase_line_id': line.purchase_line_id.id,
+                    })
                 line.workorder_id.qty_producing = line.qty_received
                 wos.append(line.workorder_id.id)
                 line.workorder_id.record_production()
+                finished_move_ids += finished_moves.ids
 
             wos = self.env['mrp.workorder'].browse(wos)
             wos.mapped('production_id').post_inventory()  # to be done together for creating one backorder picking
+            self.env["stock.move"].browse(finished_move_ids).write({
+                        'picking_id': picking_in.id,
+                    })
 
             for line in lines_to_do:
                 if not line.workorder_id.next_work_order_id and line.workorder_id.qty_remaining <= 0:
                     line.workorder_id.production_id.button_mark_done()
                 line.purchase_line_id.qty_received = sum(move.quantity_done for move in line.purchase_line_id.move_ids)
 
-            picking_in.write({'state': 'done', 'date': self.date_received})
+            #picking_in.write({'state': 'done', 'date': self.date_received})
 
 
 class PurchaseSubcontractReceiveLineWizard(models.TransientModel):
