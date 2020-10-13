@@ -321,14 +321,17 @@
         </record>
 
 
-        <!-- AUTO ENABLE WORK ORDERS SETTINGS -->
+        <!-- AUTO ENABLE SETTINGS -->
         <record id="my_config_settings" model="res.config.settings">
             <field name="group_mrp_routings" eval="True"/>
+            <field name="group_stock_multi_locations" eval="True"/>
+            <field name="group_stock_multi_warehouses" eval="True"/>
         </record>
 
         <function model="res.config.settings" name="execute">
             <value model="res.config.settings"
                    search="[('id', '=', ref('my_config_settings'))]"/>
         </function>
+
     </data>
 </odoo>

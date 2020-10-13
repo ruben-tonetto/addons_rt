@@ -21,6 +21,8 @@ class StockPicking(models.Model):
     def subcontracting_validate(self):
         if self.picking_type_id.id == self.env.ref('mrp_workorder_subcontracting.subcontracting_picking_type_out').id:
             for move in self.move_lines.mapped('purchase_line_id').mapped('workorder_id').mapped('move_raw_ids'):
+                # assign the same location (partner subcontract location) where the material in stock is gone;
+                # later it will be picked up from there by workorder
                 move.location_id = self.location_dest_id
 
 class StockImmediateTransfer(models.TransientModel):

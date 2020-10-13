@@ -5,6 +5,7 @@
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 from odoo.addons import decimal_precision as dp
+from datetime import datetime
 
 class PurchaseSubcontractReceiveWizard(models.TransientModel):
     _name = "purchase.subcontract.receive.wizard"
@@ -13,6 +14,7 @@ class PurchaseSubcontractReceiveWizard(models.TransientModel):
     name = fields.Char('Name', related="order_id.name")
     order_id = fields.Many2one('purchase.order', 'Purchase Order')
     line_ids = fields.One2many('purchase.subcontract.receive.line.wizard', 'wizard_id', 'Lines')
+    date_received = fields.Datetime('Date Received Material', required=True, default=datetime.now())
 
     def fill_quantities(self):
         for line in self.line_ids:
@@ -47,15 +49,37 @@ class PurchaseSubcontractReceiveWizard(models.TransientModel):
         })
 
     def process(self):
-        for line in self.line_ids:
-            if line.qty_received <= 0:
-                continue
-            line.workorder_id.qty_producing = line.qty_received
-            line.workorder_id.record_production()
-            line.purchase_line_id.qty_received += line.qty_received
-            line.workorder_id.production_id.post_inventory()
-            if not line.workorder_id.next_work_order_id and line.workorder_id.qty_remaining <= 0:
-                line.workorder_id.production_id.button_mark_done()
+        lines_to_do = self.line_ids.filtered(lambda l: l.qty_received > 0)
+        if lines_to_do:
+            picking_in = self.env['stock.picking'].create({
+                'partner_id': self.order_id.partner_id.id,
+                'picking_type_id': self.env.ref('mrp_workorder_subcontracting.subcontracting_picking_type_in').id,
+                'location_id': self.order_id.subcontract_location_id.id,
+                'location_dest_id': self.order_id.picking_type_id.default_location_dest_id.id,
+            })
+            wos = []
+            for line in lines_to_do:
+                line.workorder_id.production_id.move_finished_ids \
+                    .filtered(lambda m: m.state not in ['done', 'cancel']) \
+                    .write({
+                    'purchase_line_id': line.purchase_line_id.id,
+                    'picking_id': picking_in.id,
+                    #'date': self.date_received
+                })
+                line.workorder_id.qty_producing = line.qty_received
+                wos.append(line.workorder_id.id)
+                line.workorder_id.record_production()
+
+            wos = self.env['mrp.workorder'].browse(wos)
+            wos.mapped('production_id').post_inventory()  # to be done together for creating one backorder picking
+
+            for line in lines_to_do:
+                if not line.workorder_id.next_work_order_id and line.workorder_id.qty_remaining <= 0:
+                    line.workorder_id.production_id.button_mark_done()
+                line.purchase_line_id.qty_received = sum(move.quantity_done for move in line.purchase_line_id.move_ids)
+
+            picking_in.write({'state': 'done', 'date': self.date_received})
+
 
 class PurchaseSubcontractReceiveLineWizard(models.TransientModel):
     _name = 'purchase.subcontract.receive.line.wizard'

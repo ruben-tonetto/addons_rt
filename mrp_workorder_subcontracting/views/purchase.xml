@@ -6,16 +6,23 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
         <field name="arch" type="xml">
+            <button name="button_confirm" position="after">
+                <button name="action_purchase_receive"
+                        class="oe_highlight"
+                        string="Receive Subcontract"
+                        states="purchase"
+                        type="object"/>
+            </button>
             <xpath expr="//div[hasclass('oe_button_box')]/button[@name='action_view_picking']" position="before">
-                <field name="subcontract_picking_out_id" invisible="1"/>
+                <field name="picking_sub_out_ids" invisible="1"></field>
                 <button type="object"
-                    name="action_view_subcontract_picking_out"
-                    class="oe_stat_button"
-                    style="color:tomato;"
-                    icon="fa-truck fa-flip-horizontal"
-                    string="To Sub"
-                    attrs="{'invisible': ['|', ('order_type','!=',%(po_type_subcontracting)d), ('subcontract_picking_out_id','=', False)]}"
-                    groups="base.group_user">
+                        name="action_view_subcontract_picking_out"
+                        class="oe_stat_button"
+                        style="color:Tomato;"
+                        icon="fa-truck fa-flip-horizontal"
+                        attrs="{'invisible': [('picking_sub_out_count','=', 0)]}"
+                        groups="base.group_user">
+                    <field name="picking_sub_out_count" string="To Sub" widget="statinfo"/>
                 </button>
             </xpath>
             <field name="order_type" position="after">

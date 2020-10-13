@@ -7,26 +7,48 @@ from odoo.exceptions import UserError
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
-
-    subcontract_picking_out_id = fields.Many2one('stock.picking', string=_('Subcontract Pick Out'))
+    picking_sub_out_count = fields.Integer(compute='_compute_sub_picking_out', string='Subcontract count', default=0)
+    picking_sub_out_ids = fields.Many2many('stock.picking', compute='_compute_sub_picking_out', string='Receptions', copy=False)
+    #subcontract_picking_out_id = fields.Many2one('stock.picking', string=_('Subcontract Pick Out'))
     subcontract_location_id = fields.Many2one('stock.location',
                                   string=_('Subcontracting Location'), index=True,
                                   help=_('Location for Subcontracting'))
 
-    @api.multi
-    def action_view_subcontract_picking_out(self):
-        return {
-            'name': 'Purchase Order',
-            'res_model': 'stock.picking',
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'res_id': self.subcontract_picking_out_id.id
-        }
+    def _compute_sub_picking_out(self):
+        for order in self:
+            pickings = self.env['stock.move'].search([('subcontract_line_id.order_id', '=', self.id)]) \
+                .mapped('picking_id')
+            order.picking_sub_out_ids = pickings
+            order.picking_sub_out_count = len(pickings)
+
 
     @api.multi
-    def action_view_picking(self):
+    def action_view_subcontract_picking_out(self):
+
+        action = self.env.ref('stock.action_picking_tree_all')
+        result = action.read()[0]
+        # override the context to get rid of the default filtering on operation type
+        result['context'] = {}
+        pick_ids = self.picking_sub_out_ids
+        # choose the view_mode accordingly
+        if not pick_ids or len(pick_ids) > 1:
+            result['domain'] = "[('id','in',%s)]" % (pick_ids.ids)
+        elif len(pick_ids) == 1:
+            res = self.env.ref('stock.view_picking_form', False)
+            form_view = [(res and res.id or False, 'form')]
+            if 'views' in result:
+                result['views'] = form_view + [(state,view) for state,view in result['views'] if view != 'form']
+            else:
+                result['views'] = form_view
+            result['res_id'] = pick_ids.id
+        return result
+
+
+
+    @api.multi
+    def action_purchase_receive(self):
         if self.order_type.id == self.env.ref('mrp_workorder_subcontracting.po_type_subcontracting').id:
-            if self.subcontract_picking_out_id.state != "done":
+            if not self.picking_sub_out_ids.filtered(lambda p: p.state == 'done'):
                 raise UserError("You have to confirm Picking Out before proceeding with material receipt")
 
             wizard = self.env['purchase.subcontract.receive.wizard'].create({
@@ -43,14 +65,12 @@ class PurchaseOrder(models.Model):
                 'res_id': wizard.id,
                 'target': 'new',
             }
-        return super(PurchaseOrder, self).action_view_picking()
+        #return super(PurchaseOrder, self).action_view_picking()
 
     def button_confirm(self):
         for order in self:
             if order.order_type.id != self.env.ref('mrp_workorder_subcontracting.po_type_subcontracting').id:
                 continue
-            if order.subcontract_picking_out_id:
-                raise UserError("Picking Out already assigned to order %s " % order.name)
 
             out_moves = []
             location_id = False  # set while processing the first workorder
@@ -74,7 +94,7 @@ class PurchaseOrder(models.Model):
                         'state': 'confirmed',
                         'location_id': location_id.id,
                         'location_dest_id': order.subcontract_location_id.id,
-                        'purchase_line_id': po_line.id,
+                        'subcontract_line_id': po_line.id,
                     }
                     out_moves.append((0, 0, out_values))
 

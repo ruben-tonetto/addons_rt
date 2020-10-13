@@ -13,9 +13,6 @@ class MrpRoutingWorkcenter(models.Model):
     subcontract_product_id = fields.Many2one('product.product', string='Subcontracting Product')
 
 
-class MrpProduction(models.Model):
-    _inherit = 'mrp.production'
-
 class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
     subcontract_ok = fields.Boolean(string='Subcontracting Production', default=False)
