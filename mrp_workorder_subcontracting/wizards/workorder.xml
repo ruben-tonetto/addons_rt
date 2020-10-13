@@ -4,7 +4,7 @@
 	<record id="view_workorder_assign_subcontract" model="ir.ui.view">
 		<field name="model">workorder.assign.subcontract.wizard</field>
 		<field name="arch" type="xml">
-			<form string="Assign Workorder To Subcontract">
+			<form string="Create Subcontract Order">
 				<group>
 					<group>
 						<field name="location_id"></field>
@@ -45,7 +45,7 @@
 	</record>
 
     <act_window id="action_workorder_assign_subcontract"
-        name="Assign Workorders To Subcontract"
+        name="Create Subcontract Order"
         src_model="mrp.workorder"
         res_model="workorder.assign.subcontract.wizard"
         view_mode="form"

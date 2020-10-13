@@ -87,7 +87,7 @@ class PurchaseSubcontractReceiveLineWizard(models.TransientModel):
     wizard_id = fields.Many2one("purchase.receive.subcontract.wizard")
 
     purchase_line_id = fields.Many2one('purchase.order.line', 'Purchase Order Line')
-    workorder_id = fields.Many2one('mrp.workorder', 'Workorder')
+    workorder_id = fields.Many2one('mrp.workorder', 'Work Order')
     product_id = fields.Many2one('product.product', related='workorder_id.product_id', string='Product')
     qty_remaining = fields.Float(string="Remaining Qty", digits=dp.get_precision('Product Unit of Measure'))
     qty_received = fields.Float(string="Received Qty", digits=dp.get_precision('Product Unit of Measure'))

@@ -42,6 +42,7 @@
 				<field name="subcontract_ok"/>
 				<field name="subcontract_product_id" domain="[('type','=', 'service'), ('purchase_ok','=', True)]"/>
 				<field name="subcontract_partner_id"/>
+				<field name="routing_id"/>
 			</field>
 		</field>
 	</record>
@@ -73,5 +74,20 @@
 			</field>
 		</field>
 	</record>
+
+
+   <record id="action_mrp_routing_line" model="ir.actions.act_window">
+        <field name="name">Routing Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.routing.workcenter</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
+    </record>
+
+    <menuitem id="menu_mrp_routing_line"
+              name="Routing Lines"
+              parent="mrp.menu_mrp_bom"
+              action="action_mrp_routing_line"
+              sequence="51"/>
 
 </odoo>

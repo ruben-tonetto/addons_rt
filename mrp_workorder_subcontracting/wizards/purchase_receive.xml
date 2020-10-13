@@ -4,7 +4,7 @@
 	<record id="view_purchase_subcontract_receive" model="ir.ui.view">
 		<field name="model">purchase.subcontract.receive.wizard</field>
 		<field name="arch" type="xml">
-			<form string="Purchase Receive Wizard">
+			<form string="Purchase Receive">
 				 <header>
                     <button name="fill_quantities" string="Fill Quantities" type="object" />
 				 </header>

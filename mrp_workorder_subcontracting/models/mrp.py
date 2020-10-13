@@ -18,7 +18,7 @@ class MrpWorkorder(models.Model):
     subcontract_ok = fields.Boolean(string='Subcontracting Production', default=False)
     subcontract_partner_id = fields.Many2one('res.partner', string='Subcontracting Partner')
     subcontract_product_id = fields.Many2one('product.product', string='Subcontracting Product')
-    subcontract_line_id = fields.Many2one('purchase.order.line', string='Subcontracting line')
+    subcontract_line_id = fields.Many2one('purchase.order.line', string='Subcontract Order Line')
 
     @api.model
     def create(self, values):

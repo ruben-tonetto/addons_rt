@@ -12,7 +12,7 @@ class WorkorderAssignSubcontract(models.TransientModel):
     partner_id = fields.Many2one('res.partner', 'Partner', domain="[('supplier', '=', True)]")
     purchase_order_id = fields.Many2one('purchase.order', 'Purchase Order')
     new_purchase_order = fields.Boolean('New Purchase Order?', default=True)
-    workorder_ids = fields.Many2many(comodel_name='mrp.workorder', string='Workorders')
+    workorder_ids = fields.Many2many(comodel_name='mrp.workorder', string='Work Orders')
     location_id = fields.Many2one('stock.location', 'Source Location', required=True)
     location_dest_id = fields.Many2one('stock.location', 'Destination', required=True)
     date_planned_finished = fields.Datetime('Scheduled Date Finished', required=True)
@@ -61,7 +61,7 @@ class WorkorderAssignSubcontract(models.TransientModel):
     @api.multi
     def assign(self):
         if not self.workorder_ids:
-            raise UserError('No Workorders found!')
+            raise UserError('No Work Orders found!')
 
         if self.new_purchase_order:
             po = self.env['purchase.order'].create({

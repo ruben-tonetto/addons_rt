@@ -2,10 +2,10 @@
 <odoo>
 
     <record id="wizard_mrp_routing_update" model="ir.ui.view">
-        <field name="name">Update Routing Wizard</field>
+        <field name="name">Update Subcontract Routing</field>
         <field name="model">mrp.routing.update</field>
         <field name="arch" type="xml">
-            <form string="Update Routing">
+            <form string="Update Subcontract Routing">
                 <field name="routing_ids"/>
                 <group>
                     <group>
@@ -27,7 +27,7 @@
     </record>
 
     <act_window id="action_mrp_routing_update"
-        name="Update Routing Wizard"
+        name="Update Subcontract Routing"
         src_model="mrp.routing.workcenter"
         res_model="mrp.routing.update"
         view_mode="form"
