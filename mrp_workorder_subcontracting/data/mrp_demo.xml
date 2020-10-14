@@ -97,21 +97,21 @@
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
         </record>
 
-        <!-- ... product 2 (tube L=1300) -->
+        <!-- ... product 2 (tube L=1500) -->
         <record id="product_2_raw" model="product.product">
-            <field name="name">Raw Tube L=1300 mm</field>
+            <field name="name">Raw Tube L=1500 mm</field>
             <field name="type">product</field>
             <field name="default_code">CODE_0002</field>
              <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"></field>
         </record>
         <record id="product_2_9006" model="product.product">
-            <field name="name">Tube L=1300 mm GREY RAL9006</field>
+            <field name="name">Tube L=1500 mm GREY RAL9006</field>
             <field name="type">product</field>
             <field name="default_code">CODE_0002_RAL9006</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
         </record>
         <record id="product_2_9003" model="product.product">
-            <field name="name">Tube L=1300 mm WHITE RAL9003</field>
+            <field name="name">Tube L=1500 mm WHITE RAL9003</field>
             <field name="type">product</field>
             <field name="default_code">CODE_0002_RAL9003</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
@@ -120,7 +120,7 @@
 
         <!-- ... product 3 (frame) -->
         <record id="product_3_frame" model="product.product">
-            <field name="name">Frame 1300x1000</field>
+            <field name="name">Frame 1500x1000</field>
             <field name="type">product</field>
             <field name="default_code">CODE_0003_FRAME</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
