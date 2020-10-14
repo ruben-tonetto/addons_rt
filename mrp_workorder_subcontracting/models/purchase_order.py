@@ -121,9 +121,6 @@ class PurchaseOrderLine(models.Model):
     @api.multi
     def unlink(self):
         for line in self.filtered(lambda l: l.order_id.order_type == self.env.ref('mrp_workorder_subcontracting.po_type_subcontracting')):
-            if line.workorder_id:
-                line.workorder_id.subcontract_line_id = False
-                if line.order_id.subcontract_picking_out_id:
-                    line.order_id.subcontract_picking_out_id.move_lines.filtered(lambda m: m.workorder_id == line.workorder_id).unlink()
+            self.env['stock.move'].search([('subcontract_line_id', '=', line.id)]).unlink()
         res = super().unlink()
         return res

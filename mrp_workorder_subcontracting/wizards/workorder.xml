@@ -19,8 +19,18 @@
 						<field name="date_planned_finished"></field>
 					</group>
 					<group>
-						<field name="partner_id" attrs="{'invisible': [('new_purchase_order', '=', False)], 'required': [('new_purchase_order', '=', True)]}"></field>
-						<field name="purchase_order_id" attrs="{'invisible': [('new_purchase_order', '=', True)], 'required': [('new_purchase_order', '=', False)]}"></field>
+						<field name="partner_id"
+						   	attrs="{'invisible': [('new_purchase_order', '=', False)],
+									'required': [('new_purchase_order', '=', True)]}"
+						></field>
+						<field name="purchase_order_id"
+							   attrs="{'invisible': [('new_purchase_order', '=', True)],
+							   		   'required': [('new_purchase_order', '=', False)]}"
+							   domain="[
+							   ('order_type', '=', %(mrp_workorder_subcontracting.po_type_subcontracting)d),
+							   ('state', '=', 'draft'),
+							   ]"
+						></field>
 					</group>
 				</group>
 				<group>
