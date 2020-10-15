@@ -1,21 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* mrp_workorder_subcontracting
+#	* mrp_workorder_subcontracting
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-13 19:53+0000\n"
-"PO-Revision-Date: 2020-10-13 22:06+0200\n"
+"POT-Creation-Date: 2020-10-15 19:14+0000\n"
+"PO-Revision-Date: 2020-10-15 19:14+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: it\n"
-"X-Generator: Poedit 2.0.6\n"
 
 #. module: mrp_workorder_subcontracting
 #: model:product.product,name:mrp_workorder_subcontracting.product_1_9003_service
@@ -111,7 +109,7 @@ msgstr "Assegna quantità"
 #. module: mrp_workorder_subcontracting
 #: model:product.product,name:mrp_workorder_subcontracting.product_3_frame
 #: model:product.template,name:mrp_workorder_subcontracting.product_3_frame_product_template
-msgid "Frame 1300x1000"
+msgid "Frame 1500x1000"
 msgstr ""
 
 #. module: mrp_workorder_subcontracting
@@ -214,8 +212,8 @@ msgstr "Prodotto"
 #: model:ir.model,name:mrp_workorder_subcontracting.model_purchase_order
 #: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_purchase_subcontract_receive_wizard__order_id
 #: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_workorder_assign_subcontract_wizard__purchase_order_id
-msgid "Purchase Order"
-msgstr "Ordine di acquisto"
+msgid "Subcontract Order"
+msgstr "Ordine di conto lavoro"
 
 #. module: mrp_workorder_subcontracting
 #: model:ir.model,name:mrp_workorder_subcontracting.model_purchase_order_line
@@ -237,7 +235,7 @@ msgstr ""
 #. module: mrp_workorder_subcontracting
 #: model:product.product,name:mrp_workorder_subcontracting.product_2_raw
 #: model:product.template,name:mrp_workorder_subcontracting.product_2_raw_product_template
-msgid "Raw Tube L=1300 mm"
+msgid "Raw Tube L=1500 mm"
 msgstr ""
 
 #. module: mrp_workorder_subcontracting
@@ -293,18 +291,29 @@ msgstr "Terzista"
 
 #. module: mrp_workorder_subcontracting
 #: model_terms:ir.ui.view,arch_db:mrp_workorder_subcontracting.view_mrp_production_workorder_form_view_filter_sub
+msgid "Subcontract Assigned"
+msgstr "Conto lavoro assegnato"
+
+#. module: mrp_workorder_subcontracting
+#: model_terms:ir.ui.view,arch_db:mrp_workorder_subcontracting.view_mrp_production_workorder_form_view_filter_sub
 msgid "Subcontract Done"
 msgstr "Conto lavoro completato"
 
 #. module: mrp_workorder_subcontracting
+#: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_purchase_subcontract_receive_wizard__order_id
+msgid "Subcontract Order"
+msgstr "Ordine di conto lavoro"
+
+#. module: mrp_workorder_subcontracting
+#: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_mrp_workorder__subcontract_line_id
 #: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_stock_move__subcontract_line_id
 msgid "Subcontract Order Line"
 msgstr "Riga ordine conto lavoro"
 
 #. module: mrp_workorder_subcontracting
 #: model_terms:ir.ui.view,arch_db:mrp_workorder_subcontracting.view_mrp_production_workorder_form_view_filter_sub
-msgid "Subcontract To Do"
-msgstr "Conto lavoro da eseguire"
+msgid "Subcontract Assigned"
+msgstr "Conto lavoro assegnato"
 
 #. module: mrp_workorder_subcontracting
 #: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_purchase_order__picking_sub_out_count
@@ -356,11 +365,6 @@ msgid "Subcontracting Production"
 msgstr "Produzione in c/lavoro"
 
 #. module: mrp_workorder_subcontracting
-#: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_mrp_workorder__subcontract_line_id
-msgid "Subcontracting line"
-msgstr "Linea ordine conto lavoro"
-
-#. module: mrp_workorder_subcontracting
 #: model_terms:ir.ui.view,arch_db:mrp_workorder_subcontracting.view_mrp_production_workorder_form_view_filter_sub
 msgid "Subcontractor"
 msgstr "Terzista"
@@ -395,13 +399,13 @@ msgstr ""
 #. module: mrp_workorder_subcontracting
 #: model:product.product,name:mrp_workorder_subcontracting.product_2_9006
 #: model:product.template,name:mrp_workorder_subcontracting.product_2_9006_product_template
-msgid "Tube L=1300 mm GREY RAL9006"
+msgid "Tube L=1500 mm GREY RAL9006"
 msgstr ""
 
 #. module: mrp_workorder_subcontracting
 #: model:product.product,name:mrp_workorder_subcontracting.product_2_9003
 #: model:product.template,name:mrp_workorder_subcontracting.product_2_9003_product_template
-msgid "Tube L=1300 mm WHITE RAL9003"
+msgid "Tube L=1500 mm WHITE RAL9003"
 msgstr ""
 
 #. module: mrp_workorder_subcontracting
@@ -477,23 +481,19 @@ msgstr "Utilizzo Centri di Lavoro"
 #. module: mrp_workorder_subcontracting
 #: model:ir.model,name:mrp_workorder_subcontracting.model_mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_purchase_order_line__workorder_id
+#: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_purchase_subcontract_receive_line_wizard__workorder_id
 msgid "Work Order"
 msgstr "Ordine di Lavoro"
 
 #. module: mrp_workorder_subcontracting
-#: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_purchase_subcontract_receive_line_wizard__workorder_id
-msgid "Workorder"
-msgstr "Ordine di lavoro"
+#: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_workorder_assign_subcontract_wizard__workorder_ids
+msgid "Work Orders"
+msgstr "Ordini di Lavoro"
 
 #. module: mrp_workorder_subcontracting
 #: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_mrp_workorder_update__mrp_workorder_ids
 msgid "Workorder Lines"
 msgstr "Elenco ordini c/lavoro"
-
-#. module: mrp_workorder_subcontracting
-#: model:ir.model.fields,field_description:mrp_workorder_subcontracting.field_workorder_assign_subcontract_wizard__workorder_ids
-msgid "Workorders"
-msgstr "Ordini di lavoro\t"
 
 #. module: mrp_workorder_subcontracting
 #: model:product.product,weight_uom_name:mrp_workorder_subcontracting.product_1_9003

@@ -11,7 +11,7 @@
 				<filter string="Not Subcontract" name="subcontract_ok" domain="[('subcontract_ok','=', False)]"/>
 				<separator/>
 				<filter string="Subcontract Done" name="subcontract_ok" domain="[('subcontract_line_id','!=', False)]"/>
-				<filter string="Subcontract To Do" name="subcontract_ok" domain="[('subcontract_line_id','=', False)]"/>
+				<filter string="Subcontract Assigned" name="subcontract_ok" domain="[('subcontract_line_id','=', False)]"/>
 				<group expand="0" string="Group By">
 					<filter name="subcontract_ok" string="Subcontract" context="{'group_by':'subcontract_ok'}"/>
 					<filter name="subcontract_partner" string="Subcontractor" context="{'group_by':'subcontract_partner_id'}"/>

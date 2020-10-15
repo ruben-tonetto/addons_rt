@@ -12,7 +12,7 @@ class PurchaseSubcontractReceiveWizard(models.TransientModel):
     _description = "Wizard - Assign Workorder To Subcontract"
 
     name = fields.Char('Name', related="order_id.name")
-    order_id = fields.Many2one('purchase.order', 'Purchase Order')
+    order_id = fields.Many2one('purchase.order', 'Subcontract Order')
     line_ids = fields.One2many('purchase.subcontract.receive.line.wizard', 'wizard_id', 'Lines')
     date_received = fields.Datetime('Date Received Material', required=True, default=datetime.now())
 
