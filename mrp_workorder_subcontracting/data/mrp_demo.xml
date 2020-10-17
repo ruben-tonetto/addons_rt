@@ -14,35 +14,35 @@
         </record>
 
         <!-- Resource: product.product  => SERVICE -->
-        <record id="product_1_9006_service" model="product.product">
-            <field name="name">CODE_0001_9006|100</field>
+        <record id="product_1_3000_service" model="product.product">
+            <field name="name">CODE_0001_3000|100</field>
             <field name="type">service</field>
         </record>
-        <record id="product_1_9003_service" model="product.product">
-            <field name="name">CODE_0001_9003|100</field>
+        <record id="product_1_9005_service" model="product.product">
+            <field name="name">CODE_0001_9005|100</field>
             <field name="type">service</field>
         </record>
-        <record id="product_2_9006_service" model="product.product">
-            <field name="name">CODE_0002_9006|100</field>
+        <record id="product_2_3000_service" model="product.product">
+            <field name="name">CODE_0002_3000|100</field>
             <field name="type">service</field>
         </record>
-        <record id="product_2_9003_service" model="product.product">
-            <field name="name">CODE_0002_9003|100</field>
+        <record id="product_2_9005_service" model="product.product">
+            <field name="name">CODE_0002_9005|100</field>
             <field name="type">service</field>
         </record>
 
-        <record id="product_1_9006_service" model="product.product">
-            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9006_service'), 'price': 3.5 })]"></field>
+        <record id="product_1_3000_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_3000_service'), 'price': 3.5 })]"></field>
         </record>
-        <record id="product_1_9003_service" model="product.product">
-            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9003_service'), 'price': 4.2 })]"></field>
+        <record id="product_1_9005_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_1_9005_service'), 'price': 4.2 })]"></field>
         </record>
 
-        <record id="product_2_9006_service" model="product.product">
-            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9006_service'), 'price': 7 })]"></field>
+        <record id="product_2_3000_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_3000_service'), 'price': 7 })]"></field>
         </record>
-        <record id="product_2_9003_service" model="product.product">
-            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9003_service'), 'price': 8.4 })]"></field>
+        <record id="product_2_9005_service" model="product.product">
+            <field name="seller_ids" eval="[(0, 0, {'name': ref('base.res_partner_4'), 'product_id': ref('product_2_9005_service'), 'price': 8.4 })]"></field>
         </record>
 
         <!-- Resource: mrp.workcenter -->
@@ -58,17 +58,17 @@
 
 
         <!-- Resource: mrp.routing -->
-        <record id="mrp_routing_1_9006" model="mrp.routing">
-            <field name="name">Routing CODE_0001 9006</field>
+        <record id="mrp_routing_1_3000" model="mrp.routing">
+            <field name="name">Routing CODE_0001 3000</field>
         </record>
-        <record id="mrp_routing_1_9003" model="mrp.routing">
-            <field name="name">Routing CODE_0001 9003</field>
+        <record id="mrp_routing_1_9005" model="mrp.routing">
+            <field name="name">Routing CODE_0001 9005</field>
         </record>
-        <record id="mrp_routing_2_9006" model="mrp.routing">
-            <field name="name">Routing CODE_0002 9006</field>
+        <record id="mrp_routing_2_3000" model="mrp.routing">
+            <field name="name">Routing CODE_0002 3000</field>
         </record>
-        <record id="mrp_routing_2_9003" model="mrp.routing">
-            <field name="name">Routing CODE_0002 9003</field>
+        <record id="mrp_routing_2_9005" model="mrp.routing">
+            <field name="name">Routing CODE_0002 9005</field>
         </record>
         <record id="mrp_routing_3_frame" model="mrp.routing">
             <field name="name">Routing CODE_0003 FRAME</field>
@@ -82,19 +82,22 @@
             <field name="type">product</field>
             <field name="default_code">CODE_0001</field>
              <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"></field>
+            <field name="image" type="base64" file="mrp_workorder_subcontracting/static/img/CODE_0001_RAW.png"/>
         </record>
-        <record id="product_1_9006" model="product.product">
-            <field name="name">Tube L=1000 mm GREY RAL9006</field>
+        <record id="product_1_3000" model="product.product">
+            <field name="name">Tube L=1000 mm GREY RAL3000</field>
             <field name="type">product</field>
-            <field name="default_code">CODE_0001_RAL9006</field>
+            <field name="default_code">CODE_0001_RAL3000</field>
             <field name="uom_id" ref="uom.product_uom_unit"/>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+             <field name="image" type="base64" file="mrp_workorder_subcontracting/static/img/CODE_0001_RAL3000.png"/>
         </record>
-        <record id="product_1_9003" model="product.product">
-            <field name="name">Tube L=1000 mm WHITE RAL9003</field>
+        <record id="product_1_9005" model="product.product">
+            <field name="name">Tube L=1000 mm WHITE RAL9005</field>
             <field name="type">product</field>
-            <field name="default_code">CODE_0001_RAL9003</field>
+            <field name="default_code">CODE_0001_RAL9005</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+             <field name="image" type="base64" file="mrp_workorder_subcontracting/static/img/CODE_0001_RAL9005.png"/>
         </record>
 
         <!-- ... product 2 (tube L=1500) -->
@@ -103,18 +106,21 @@
             <field name="type">product</field>
             <field name="default_code">CODE_0002</field>
              <field name="route_ids" eval="[(6, 0, [ref('purchase_stock.route_warehouse0_buy')])]"></field>
+            <field name="image" type="base64" file="mrp_workorder_subcontracting/static/img/CODE_0002_RAW.png"/>
         </record>
-        <record id="product_2_9006" model="product.product">
-            <field name="name">Tube L=1500 mm GREY RAL9006</field>
+        <record id="product_2_3000" model="product.product">
+            <field name="name">Tube L=1500 mm GREY RAL3000</field>
             <field name="type">product</field>
-            <field name="default_code">CODE_0002_RAL9006</field>
+            <field name="default_code">CODE_0002_RAL3000</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+            <field name="image" type="base64" file="mrp_workorder_subcontracting/static/img/CODE_0002_RAL3000.png"/>
         </record>
-        <record id="product_2_9003" model="product.product">
-            <field name="name">Tube L=1500 mm WHITE RAL9003</field>
+        <record id="product_2_9005" model="product.product">
+            <field name="name">Tube L=1500 mm WHITE RAL9005</field>
             <field name="type">product</field>
-            <field name="default_code">CODE_0002_RAL9003</field>
+            <field name="default_code">CODE_0002_RAL9005</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+            <field name="image" type="base64" file="mrp_workorder_subcontracting/static/img/CODE_0002_RAL9005.png"/>
         </record>
 
 
@@ -124,32 +130,33 @@
             <field name="type">product</field>
             <field name="default_code">CODE_0003_FRAME</field>
             <field name="route_ids" eval="[(6, 0, [ref('stock.route_warehouse0_mto'), ref('mrp.route_warehouse0_manufacture')])]"/>
+            <field name="image" type="base64" file="mrp_workorder_subcontracting/static/img/CODE_0003_FRAME.png"/>
         </record>
 
         <!-- Resource: mrp.bom -->
-        <record id="mrp_bom_manufacture_product_1_9006" model="mrp.bom">
-            <field name="product_tmpl_id" ref="product_1_9006_product_template"/>
+        <record id="mrp_bom_manufacture_product_1_3000" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_1_3000_product_template"/>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="routing_id" ref="mrp_routing_1_9006"/>
+            <field name="routing_id" ref="mrp_routing_1_3000"/>
         </record>
-        <record id="mrp_bom_manufacture_product_1_9003" model="mrp.bom">
-            <field name="product_tmpl_id" ref="product_1_9003_product_template"/>
+        <record id="mrp_bom_manufacture_product_1_9005" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_1_9005_product_template"/>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="routing_id" ref="mrp_routing_1_9003"/>
+            <field name="routing_id" ref="mrp_routing_1_9005"/>
         </record>
-        <record id="mrp_bom_manufacture_product_2_9006" model="mrp.bom">
-            <field name="product_tmpl_id" ref="product_2_9006_product_template"/>
+        <record id="mrp_bom_manufacture_product_2_3000" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_2_3000_product_template"/>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="routing_id" ref="mrp_routing_2_9006"/>
+            <field name="routing_id" ref="mrp_routing_2_3000"/>
         </record>
-        <record id="mrp_bom_manufacture_product_2_9003" model="mrp.bom">
-            <field name="product_tmpl_id" ref="product_2_9003_product_template"/>
+        <record id="mrp_bom_manufacture_product_2_9005" model="mrp.bom">
+            <field name="product_tmpl_id" ref="product_2_9005_product_template"/>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="routing_id" ref="mrp_routing_2_9003"/>
+            <field name="routing_id" ref="mrp_routing_2_9005"/>
         </record>
         <record id="mrp_bom_manufacture_product_3_frame" model="mrp.bom">
             <field name="product_tmpl_id" ref="product_3_frame_product_template"/>
@@ -160,33 +167,33 @@
 
 
         <!-- Resource: mrp.bom.line -->
-        <record id="mrp_bom_line_manufacture_product_1_9006" model="mrp.bom.line">
+        <record id="mrp_bom_line_manufacture_product_1_3000" model="mrp.bom.line">
             <field name="product_id" ref="product_1_raw"/>
             <field name="product_qty">1</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9006"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_3000"/>
         </record>
-        <record id="mrp_bom_line_manufacture_product_1_9003" model="mrp.bom.line">
+        <record id="mrp_bom_line_manufacture_product_1_9005" model="mrp.bom.line">
             <field name="product_id" ref="product_1_raw"/>
             <field name="product_qty">1</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9003"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9005"/>
         </record>
-        <record id="mrp_bom_line_manufacture_product_2_9006" model="mrp.bom.line">
+        <record id="mrp_bom_line_manufacture_product_2_3000" model="mrp.bom.line">
             <field name="product_id" ref="product_2_raw"/>
             <field name="product_qty">1</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9006"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_3000"/>
         </record>
-        <record id="mrp_bom_line_manufacture_product_2_9003" model="mrp.bom.line">
+        <record id="mrp_bom_line_manufacture_product_2_9005" model="mrp.bom.line">
             <field name="product_id" ref="product_2_raw"/>
             <field name="product_qty">1</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="sequence">1</field>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"/>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9005"/>
         </record>
         <!-- FRAME -->
         <record id="mrp_bom_line_manufacture_product_3_1" model="mrp.bom.line">
@@ -206,39 +213,39 @@
 
 
         <!-- Resource: mrp.routing.workcenter -->
-        <record id="mrp_routing_workcenter_1_9006" model="mrp.routing.workcenter">
-            <field name="routing_id" ref="mrp_routing_1_9006"/>
+        <record id="mrp_routing_workcenter_1_3000" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_1_3000"/>
             <field name="workcenter_id" ref="mrp_workcenter_1"/>
-            <field name="name">Painting RAL 9006</field>
+            <field name="name">Painting RAL 3000</field>
             <field name="subcontract_ok" eval="True"/>
-            <field name="subcontract_product_id" ref="product_1_9006_service"></field>
+            <field name="subcontract_product_id" ref="product_1_3000_service"></field>
             <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
-        <record id="mrp_routing_workcenter_1_9003" model="mrp.routing.workcenter">
-            <field name="routing_id" ref="mrp_routing_1_9003"/>
+        <record id="mrp_routing_workcenter_1_9005" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_1_9005"/>
             <field name="workcenter_id" ref="mrp_workcenter_1"/>
-            <field name="name">Painting RAL 9003</field>
+            <field name="name">Painting RAL 9005</field>
             <field name="subcontract_ok" eval="True"/>
-            <field name="subcontract_product_id" ref="product_1_9003_service"></field>
+            <field name="subcontract_product_id" ref="product_1_9005_service"></field>
             <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
-        <record id="mrp_routing_workcenter_2_9006" model="mrp.routing.workcenter">
-            <field name="routing_id" ref="mrp_routing_2_9006"/>
+        <record id="mrp_routing_workcenter_2_3000" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_2_3000"/>
             <field name="workcenter_id" ref="mrp_workcenter_1"/>
-            <field name="name">Painting RAL 9006</field>
+            <field name="name">Painting RAL 3000</field>
             <field name="subcontract_ok" eval="True"/>
-            <field name="subcontract_product_id" ref="product_2_9006_service"></field>
+            <field name="subcontract_product_id" ref="product_2_3000_service"></field>
             <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
-        <record id="mrp_routing_workcenter_2_9003" model="mrp.routing.workcenter">
-            <field name="routing_id" ref="mrp_routing_2_9003"/>
+        <record id="mrp_routing_workcenter_2_9005" model="mrp.routing.workcenter">
+            <field name="routing_id" ref="mrp_routing_2_9005"/>
             <field name="workcenter_id" ref="mrp_workcenter_1"/>
-            <field name="name">Painting RAL 9003</field>
+            <field name="name">Painting RAL 9005</field>
             <field name="subcontract_ok" eval="True"/>
-            <field name="subcontract_product_id" ref="product_2_9003_service"></field>
+            <field name="subcontract_product_id" ref="product_2_9005_service"></field>
             <field name="subcontract_partner_id" ref="base.res_partner_4"></field>
             <field name="sequence">100</field>
         </record>
@@ -255,61 +262,61 @@
         <!-- Resource: mrp.production -->
         <!-- product 1 -->
         <record id="mrp_production_1" model="mrp.production">
-            <field name="product_id" ref="product_1_9006"/>
+            <field name="product_id" ref="product_1_3000"/>
             <field name="product_qty">7</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9006"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_3000"></field>
         </record>
         <record id="mrp_production_2" model="mrp.production">
-            <field name="product_id" ref="product_1_9006"/>
+            <field name="product_id" ref="product_1_3000"/>
             <field name="product_qty">3</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=2)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9006"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_3000"></field>
         </record>
         <record id="mrp_production_3" model="mrp.production">
-            <field name="product_id" ref="product_1_9003"/>
+            <field name="product_id" ref="product_1_9005"/>
             <field name="product_qty">10</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9003"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9005"></field>
         </record>
         <record id="mrp_production_4" model="mrp.production">
-            <field name="product_id" ref="product_1_9003"/>
+            <field name="product_id" ref="product_1_9005"/>
             <field name="product_qty">4</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=2)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9003"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_1_9005"></field>
         </record>
         <!-- product 2 -->
         <record id="mrp_production_5" model="mrp.production">
-            <field name="product_id" ref="product_2_9006"/>
+            <field name="product_id" ref="product_2_3000"/>
             <field name="product_qty">17</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9006"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_3000"></field>
         </record>
         <record id="mrp_production_6" model="mrp.production">
-            <field name="product_id" ref="product_2_9006"/>
+            <field name="product_id" ref="product_2_3000"/>
             <field name="product_qty">13</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=1)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9006"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_3000"></field>
         </record>
         <record id="mrp_production_7" model="mrp.production">
-            <field name="product_id" ref="product_2_9003"/>
+            <field name="product_id" ref="product_2_9005"/>
             <field name="product_qty">4</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(months=1)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9005"></field>
         </record>
         <record id="mrp_production_8" model="mrp.production">
-            <field name="product_id" ref="product_2_9003"/>
+            <field name="product_id" ref="product_2_9005"/>
             <field name="product_qty">3</field>
             <field name="product_uom_id" ref="uom.product_uom_unit"/>
             <field name="date_planned_finished" eval="(DateTime.today() + relativedelta(weeks=1)).strftime('%Y-%m-%d %H:%M')"/>
-            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9003"></field>
+            <field name="bom_id" ref="mrp_bom_manufacture_product_2_9005"></field>
         </record>
         <!-- product 3 -->
         <record id="mrp_production_9" model="mrp.production">
