@@ -11,7 +11,6 @@ class StockPicking(models.Model):
     @api.multi
     def button_validate(self):
         res = super(StockPicking, self).button_validate()
-
         # if not res: validate has been done
         # if res, validate has not been done (an action is returned for immediate transfer or backorder)
         if not res:
@@ -25,6 +24,7 @@ class StockPicking(models.Model):
                 # later it will be picked up from there by workorder
                 move.location_id = self.location_dest_id
 
+                
 class StockImmediateTransfer(models.TransientModel):
     _inherit = 'stock.immediate.transfer'
 
@@ -33,4 +33,3 @@ class StockImmediateTransfer(models.TransientModel):
         for picking in self.pick_ids:
             picking.subcontracting_validate()
         return res
-
